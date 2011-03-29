@@ -28,3 +28,6 @@ def dec_rating():
     banshee.SetRating(dbus.Byte(rating))
 
     return rating
+
+def current_track():
+    return banshee.GetCurrentTrack()
