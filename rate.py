@@ -21,7 +21,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import keybinder, gtk
+import keybinder, gtk, sys
 
 from banshee import current_track, get_rating, set_rating
 from notify import Notify
@@ -50,13 +50,16 @@ class RateSong(object):
 
         for x in range(1,6):
             key = '<ctrl>F' + str(x)
-            keybinder.bind(key, lambda y=x: self.rate(y))
+            if not keybinder.bind(key, lambda y=x: self.rate(y)):
+                sys.stderr.write('Could not bind: ' + key)
+                exit(1)
 
-        def foo():
-            print 'here'
-            
-        keybinder.bind('<ctrl><alt>-', foo)
-        keybinder.bind('<ctrl><alt>=', foo)
+        if not keybinder.bind('<ctrl>F7', self.decr):
+            sys.stderr.write('Could not bind <ctrl>F7')
+            exit(1)
+        if not keybinder.bind('<ctrl>F8', self.incr):
+            sys.stderr.write('Could not bind <ctrl>F8')
+            exit(1)
 
     def rate(self, n):
         rating = get_rating()
@@ -87,7 +90,7 @@ class RateSong(object):
         
         song = song_string(current_track())
 
-        self.n.upate(song, rating)
+        self.n.update(song, rating)
         self.n.change_stars(new_rating)
 
 if __name__ == '__main__':
