@@ -9,6 +9,7 @@ for 5 stars.
 I suggest putting 'python <path to>/rate.py' in your set of 'Startup
 Applications.'
 
+NOTE: This has only been tested with Ubuntu 11.04.
 
 TODO
 ----
