@@ -1,0 +1,17 @@
+-*- mode: text -*-
+
+Rate the song currently playing in Banshee.
+
+To use, run python rate.py. At this point Ctrl-F1 will rate the
+current song with 1 star, Ctrl-F2 will award 2 stars... up to Ctrl-F5
+for 5 stars.
+
+I suggest putting 'python <path to>/rate.py' in your set of 'Startup
+Applications.'
+
+
+TODO
+----
+
+1) Implement increment/decrement rating (I plan to use Ctrl-=, Ctrl--
+for this)

@@ -28,7 +28,8 @@ class RateSong(object):
 
         self.n.update(song, rating)
         self.n.change_stars(n)
-    
-rate_song = RateSong()
 
-gtk.main()
+if __name__ == '__main__':
+    rate_song = RateSong()
+    
+    gtk.main()
