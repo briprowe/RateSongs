@@ -67,6 +67,9 @@ class Notify(object):
         self.n.show()
         self.stars = new_stars
 
+    def show(self):
+        self.n.show()
+
 if __name__ == '__main__':
     n = pynotify.Notification('title', 'message')
     n.show()

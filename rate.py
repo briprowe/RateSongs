@@ -43,22 +43,27 @@ def clamp(rating):
         rating = MIN_RATING
 
     return rating
-        
+
+def bind(key, fun):
+    if not keybinder.bind(key, fun):
+        sys.stderr.write('Could not bind: ' + key)
+        return False
+    return True
+
 class RateSong(object):
     def __init__(self):
         self.n = Notify()
 
         for x in range(1,6):
             key = '<ctrl>F' + str(x)
-            if not keybinder.bind(key, lambda y=x: self.rate(y)):
-                sys.stderr.write('Could not bind: ' + key)
+            if not bind(key, lambda y=x: self.rate(y)):
                 exit(1)
 
-        if not keybinder.bind('<ctrl>F7', self.decr):
-            sys.stderr.write('Could not bind <ctrl>F7')
+        if not bind('<ctrl>F6', self.show):
             exit(1)
-        if not keybinder.bind('<ctrl>F8', self.incr):
-            sys.stderr.write('Could not bind <ctrl>F8')
+        if not bind('<ctrl>F7', self.decr):
+            exit(1)
+        if not bind('<ctrl>F8', self.incr):
             exit(1)
 
     def rate(self, n):
@@ -92,6 +97,13 @@ class RateSong(object):
 
         self.n.update(song, rating)
         self.n.change_stars(new_rating)
+
+    def show(self):
+        rating = get_rating
+        song = song_string(current_track())
+
+        self.n.update(song, rating)
+        self.n.show()
 
 if __name__ == '__main__':
     rate_song = RateSong()
