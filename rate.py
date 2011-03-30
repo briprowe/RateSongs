@@ -99,7 +99,7 @@ class RateSong(object):
         self.n.change_stars(new_rating)
 
     def show(self):
-        rating = get_rating
+        rating = get_rating()
         song = song_string(current_track())
 
         self.n.update(song, rating)
