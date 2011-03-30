@@ -68,7 +68,7 @@ class RateSong(object):
 
     def rate(self, n):
         rating = get_rating()
-        set_rating(n)
+        set_rating(clamp(n))
         track = current_track()
 
         song = song_string(track)
