@@ -23,11 +23,16 @@
 
 import dbus
 
-bus = dbus.SessionBus()
-banshee = bus.get_object('org.bansheeproject.Banshee',
-                         '/org/bansheeproject/Banshee/PlayerEngine')
+def bind():
+    bus = dbus.SessionBus()
+    banshee = bus.get_object('org.bansheeproject.Banshee',
+                             '/org/bansheeproject/Banshee/PlayerEngine')
 
-def set_rating(n):
+    return banshee
+
+def set_rating(n, banshee=None):
+    banshee = banshee or bind()
+
     if n < 0:
         n = 0
     elif n > 5:
@@ -35,20 +40,28 @@ def set_rating(n):
         
     banshee.SetRating(dbus.Byte(n))
 
-def get_rating():
+def get_rating(banshee=None):
+    banshee = banshee or bind()
+        
     return banshee.GetRating()
 
-def inc_rating():
+def inc_rating(banshee=None):
+    banshee = banshee or bind()
+        
     rating = int(banshee.GetRating()) + 1
     banshee.SetRating(dbus.Byte(rating))
 
     return rating
 
-def dec_rating():
+def dec_rating(banshee=None):
+    banshee = banshee or bind()
+
     rating = int(banshee.GetRating()) - 1
     banshee.SetRating(dbus.Byte(rating))
 
     return rating
 
-def current_track():
+def current_track(banshee=None):
+    banshee = banshee or bind()
+        
     return banshee.GetCurrentTrack()
